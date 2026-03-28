@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visiting Card – Ankit Verma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'DM Sans', sans-serif;
+    gap: 40px;
+    padding: 40px 20px;
+  }
+
+  h2 {
+    color: #aaa;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .card-wrap {
+    perspective: 1200px;
+  }
+
+  /* ── FRONT ── */
+  .card {
+    width: 420px;
+    height: 240px;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+    background: #0d1b2a;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-6px) rotateX(3deg);
+    box-shadow: 0 50px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+  }
+
+  /* Decorative diagonal band */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -60px;
+    width: 260px; height: 340px;
+    background: linear-gradient(135deg, #1a6b3c 0%, #0f4027 60%, transparent 100%);
+    clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+    opacity: 0.9;
+  }
+
+  /* Subtle grid texture */
+  .card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .card-inner {
+    position: relative; z-index: 2;
+    padding: 28px 32px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Logo / Org badge */
+  .org-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .org-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2ecc71, #1a6b3c);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(46,204,113,0.3);
+  }
+
+  .org-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #a0c4af;
+    line-height: 1.5;
+    max-width: 180px;
+  }
+
+  /* Name block */
+  .name-block { }
+
+  .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #f0f4f2;
+    letter-spacing: 0.5px;
+    line-height: 1;
+  }
+
+  .designation {
+    margin-top: 5px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #2ecc71;
+  }
+
+  /* Contact strip */
+  .contact-strip {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .contact-item .icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(46,204,113,0.15);
+    border: 1px solid rgba(46,204,113,0.3);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-item .icon svg {
+    width: 9px; height: 9px;
+    fill: #2ecc71;
+  }
+
+  .contact-item span {
+    font-size: 11px;
+    font-weight: 400;
+    color: #b0c4ba;
+    letter-spacing: 0.3px;
+  }
+
+  a.contact-item {
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    transition: all 0.2s ease;
+  }
+
+  a.contact-item:hover .icon {
+    background: rgba(46,204,113,0.3);
+    border-color: #2ecc71;
+  }
+
+  a.contact-item:hover span {
+    color: #2ecc71;
+  }
+
+  /* ── BACK ── */
+  .card-back {
+    width: 420px;
+    height: 240px;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+    background: #0f4027;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .card-back:hover {
+    transform: translateY(-6px) rotateX(3deg);
+    box-shadow: 0 50px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+  }
+
+  .card-back::before {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -50px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(46,204,113,0.15) 0%, transparent 70%);
+  }
+
+  .card-back::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .back-inner {
+    position: relative; z-index: 2;
+    padding: 28px 32px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .back-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .address-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .address-title {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #2ecc71;
+    margin-bottom: 8px;
+  }
+
+  .address-text {
+    font-size: 10.5px;
+    color: #c4daca;
+    line-height: 1.75;
+    font-weight: 300;
+    max-width: 300px;
+  }
+
+  .gst-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .gst-label {
+    font-size: 8.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #2ecc71;
+    opacity: 0.8;
+  }
+
+  .gst-value {
+    font-size: 10px;
+    color: #a0c4af;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-family: 'DM Sans', monospace;
+  }
+
+  .print-btn {
+    padding: 10px 28px;
+    background: transparent;
+    border: 1px solid rgba(46,204,113,0.4);
+    border-radius: 6px;
+    color: #2ecc71;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .print-btn:hover {
+    background: rgba(46,204,113,0.1);
+    border-color: #2ecc71;
+  }
+
+  @media print {
+    body { background: white; }
+    .print-btn, h2 { display: none; }
+    .card, .card-back {
+      box-shadow: none;
+      border: 1px solid #ccc;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h2>Front</h2>
+
+<div class="card-wrap">
+  <div class="card">
+    <div class="card-inner">
+
+      <div class="org-badge">
+        <div class="org-icon">I&G</div>
+        <div class="org-name">I&G Infratech Pvt. Ltd.</div>
+      </div>
+
+      <div class="name-block">
+        <div class="name">Ankit Verma</div>
+        <div class="designation">EHS Manager</div>
+      </div>
+
+      <div class="contact-strip">
+        <a href="tel:+917976544885" class="contact-item" title="Tap to call">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+            </svg>
+          </div>
+          <span>+91 79765 44885</span>
+        </a>
+        <a href="mailto:EHSJNIKEA@hybec.net" class="contact-item" title="Tap to email">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </div>
+          <span>EHSJNIKEA@hybec.net</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<h2>Back</h2>
+
+<div class="card-wrap">
+  <div class="card-back">
+    <div class="back-inner">
+
+      <div class="back-label">I&G Infratech Pvt. Ltd.</div>
+
+      <div class="address-block">
+        <div class="address-title">Office Address</div>
+        <div class="address-text">
+          B-821, Element One, Sector 47 & 49,<br>
+          Fatehpur, Gurugram, Haryana – 122018<br>
+          India
+        </div>
+      </div>
+
+      <div class="gst-row">
+        <span class="gst-label">GST</span>
+        <span class="gst-value">06AAHCI3935J1ZE</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+</body>
+</html>
